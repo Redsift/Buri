@@ -10,11 +10,14 @@
 
 @protocol BuriSupport
 
-+ (NSDictionary *)buriProperties;
+- (NSDictionary *)buriProperties;
 
 - (id)initWithCoder:(NSCoder *)decoder;
 - (void)encodeWithCoder:(NSCoder *)encoder;
-    
+
+@optional
+- (id)value:(NSString*)key;
+
 @end
 
 @interface BuriWriteObject : NSObject {

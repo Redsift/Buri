@@ -14,7 +14,7 @@
 - (id)initWithBuriObject:(NSObject <BuriSupport> *)buriObject
 {
 	if (self = [super init]) {
-		NSDictionary *objectProperties = [[buriObject class] buriProperties];
+		NSDictionary *objectProperties = [buriObject buriProperties];
 
 		if (!objectProperties[BURI_KEY]) {
 			[NSException raise:@"No complete Buri object implementation" format:@"No key found in the property declaration."];
@@ -23,10 +23,16 @@
         NSString *keyField = objectProperties[BURI_KEY];
 
         if (![buriObject respondsToSelector:NSSelectorFromString(keyField)]) {
-            [NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for key: %@", keyField];
+            if(![buriObject respondsToSelector:NSSelectorFromString(@"value:")]) {
+                [NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for key: %@", keyField];
+            }
+            
+            _key = [buriObject value:keyField];
+        }
+        else {
+            _key = [buriObject performSelector:NSSelectorFromString(keyField)];
         }
         
-		_key = [buriObject performSelector:NSSelectorFromString(keyField)];
         if (!_key) {
             [NSException raise:@"Incorrect Buri object implementation" format:@"Nil value for key: %@", keyField];
         }
@@ -44,16 +50,23 @@
             NSMutableArray *tempIndexes = [NSMutableArray array];
             
             for (id indexField in indexFields) {
-				if (![buriObject respondsToSelector:NSSelectorFromString(indexField)]) {
-					[NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for: %@", indexField];
-				}
+				id indexValue = nil;
                 
-				id indexValue = [buriObject performSelector:NSSelectorFromString(indexField)];
+				if (![buriObject respondsToSelector:NSSelectorFromString(indexField)]) {
+                    if(![buriObject respondsToSelector:NSSelectorFromString(@"value:")]) {
+                        [NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for: %@", indexField];
+                    }
+                    
+                    indexValue = [buriObject value:indexField];
+				}
+                else {
+                    indexValue = [buriObject performSelector:NSSelectorFromString(indexField)];
+                }
                 
 				if ([indexValue isKindOfClass:[NSNumber class]]) {
 					[tempIndexes addObject:[[BuriNumericIndex alloc] initWithKey:indexField value:indexValue]];
 				} else {
-					[NSException raise:@"Incorrect Buri object implementation" format:@"Binary index values should be a NSString or NSData."];
+					[NSException raise:@"Incorrect Buri object implementation" format:@"Numeric index values should be a NSNumber."];
 				}
 			}
             
@@ -70,11 +83,17 @@
 			NSMutableArray *tempIndexes = [NSMutableArray array];
 
 			for (id indexField in indexFields) {
+				id indexValue = nil;
+                
 				if (![buriObject respondsToSelector:NSSelectorFromString(indexField)]) {
-					[NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for: %@", indexField];
+                    if(![buriObject respondsToSelector:NSSelectorFromString(@"value:")]) {
+                        [NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for: %@", indexField];
+                    }
+                    indexValue = [buriObject value:indexField];
 				}
-
-				id indexValue = [buriObject performSelector:NSSelectorFromString(indexField)];
+                else {
+                    indexValue = [buriObject performSelector:NSSelectorFromString(indexField)];
+                }
 
 				if ([indexValue isKindOfClass:[NSString class]]) {
 					[tempIndexes addObject:[[BuriBinaryIndex alloc] initWithKey:indexField value:indexValue]];
