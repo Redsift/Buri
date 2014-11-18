@@ -15,13 +15,13 @@
 @synthesize buri		= _buri;
 @synthesize usedClass	= _usedClass;
 
-- (id)initWithDB:(Buri *)aDb andObjectClass:(Class)aClass
+- (id)initWithDB:(Buri *)aDb andName:(NSString*)aName andObjectClass:(Class <BuriSupport>)aClass
 {
 	self = [super init];
 
 	if (self) {
 		_buri		= aDb;
-		_name		= NSStringFromClass(aClass);
+        _name		= aName; // NSStringFromClass(aClass);
 		_usedClass	= aClass;
 		[self initBucketPointer];
 	}

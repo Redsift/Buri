@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) Class usedClass;
 
-- (id)initWithDB:(Buri *)aDb andObjectClass:(Class <BuriSupport>)aClass;
+- (id)initWithDB:(Buri *)aDb andName:(NSString*)aName andObjectClass:(Class <BuriSupport>)aClass;
 
 - (id)fetchObjectForKey:(NSString *)key;
 
