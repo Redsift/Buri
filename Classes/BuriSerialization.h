@@ -40,9 +40,9 @@
 
 @end
 
-static NSString *BURI_KEY = @"BURI_KEY";
-static NSString *BURI_VALUE = @"BURI_VALUE";
-static NSString *BURI_NUMERIC_INDEXES = @"BURI_NUMERIC_INDEXES";
-static NSString *BURI_BINARY_INDEXES = @"BURI_BINARY_INDEXES";
-static NSString *BURI_META_DATA = @"BURI_META_DATA";
+extern NSString *BURI_KEY;
+extern NSString *BURI_VALUE;
+extern NSString *BURI_NUMERIC_INDEXES;
+extern NSString *BURI_BINARY_INDEXES;
+extern NSString *BURI_META_DATA;
 

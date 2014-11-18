@@ -9,6 +9,12 @@
 #include "BuriSerialization.h"
 #include "BuriIndex.h"
 
+NSString *BURI_KEY = @"BURI_KEY";
+NSString *BURI_VALUE = @"BURI_VALUE";
+NSString *BURI_NUMERIC_INDEXES = @"BURI_NUMERIC_INDEXES";
+NSString *BURI_BINARY_INDEXES = @"BURI_BINARY_INDEXES";
+NSString *BURI_META_DATA = @"BURI_META_DATA";
+
 @implementation BuriWriteObject
 
 - (id)initWithBuriObject:(NSObject <BuriSupport> *)buriObject
