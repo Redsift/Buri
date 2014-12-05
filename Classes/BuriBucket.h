@@ -26,7 +26,7 @@
 - (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue;
 
 - (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField value:(NSString *)value;
-- (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField data:(NSData *)value;
+//- (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField data:(NSData *)value;
 
 - (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField value:(NSNumber *)value;
 - (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue;

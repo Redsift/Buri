@@ -27,9 +27,9 @@ struct LevelDB;
 - (void)putObject:(id)value forKey:(NSString *)key;
 
 - (id)getObject:(NSString *)key;
-- (NSString *)getString:(NSString *)key;
-- (NSDictionary *)getDictionary:(NSString *)key;
-- (NSArray *)getArray:(NSString *)key;
+//- (NSString *)getString:(NSString *)key;
+//- (NSDictionary *)getDictionary:(NSString *)key;
+//- (NSArray *)getArray:(NSString *)key;
 
 // iteration methods
 - (NSArray *)allKeys;

@@ -103,10 +103,10 @@ NSString *BURI_META_DATA = @"BURI_META_DATA";
 
 				if ([indexValue isKindOfClass:[NSString class]]) {
 					[tempIndexes addObject:[[BuriBinaryIndex alloc] initWithKey:indexField value:indexValue]];
-				} else if ([indexValue isKindOfClass:[NSData class]]) {
-					[tempIndexes addObject:[[BuriBinaryIndex alloc] initWithKey:indexField data:indexValue]];
+				//} else if ([indexValue isKindOfClass:[NSData class]]) {
+				//	[tempIndexes addObject:[[BuriBinaryIndex alloc] initWithKey:indexField data:indexValue]];
 				} else {
-					[NSException raise:@"Incorrect Buri object implementation" format:@"Binary index values should be a NSString or NSData."];
+					[NSException raise:@"Incorrect Buri object implementation" format:@"Binary index values should be a NSString."];
 				}
 			}
 
