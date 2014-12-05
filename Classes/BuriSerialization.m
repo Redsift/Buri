@@ -33,7 +33,7 @@ NSString *BURI_META_DATA = @"BURI_META_DATA";
                 [NSException raise:@"Incorrect Buri object implementation" format:@"No getter found for key: %@", keyField];
             }
             
-            _key = [buriObject value:keyField];
+            _key = keyField;
         }
         else {
             _key = [buriObject performSelector:NSSelectorFromString(keyField)];
