@@ -316,7 +316,8 @@
         
         if ([value isMemberOfClass:[BuriWriteObject class]]) {
             id storedObject = [(BuriWriteObject *) value storedObject];
-            [keyValues addObject:@{@"key": key, @"value": storedObject}];
+
+            [keyValues addObject:@{@"key": [self removePrefixFromKey:key], @"value": storedObject}];
         }
         
         return YES;
