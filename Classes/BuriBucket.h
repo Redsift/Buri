@@ -33,6 +33,7 @@
 
 - (NSArray *)allKeys;
 - (NSArray *)allObjects;
+- (NSArray *)allKeyValues;
 
 - (void)storeObject:(NSObject <BuriSupport> *)value;
 

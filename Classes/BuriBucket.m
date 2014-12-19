@@ -306,6 +306,25 @@
 	return objects;
 }
 
+- (NSArray *)allKeyValues
+{
+    NSMutableArray *keyValues = [[NSMutableArray alloc] init];
+    
+    [_buri seekToKey:[self bucketPointerKey] andIterate:^BOOL (NSString * key, id value) {
+        if ([key rangeOfString:[self bucketPointerKey]].location != 0)
+            return NO;
+        
+        if ([value isMemberOfClass:[BuriWriteObject class]]) {
+            id storedObject = [(BuriWriteObject *) value storedObject];
+            [keyValues addObject:@{@"key": key, @"value": storedObject}];
+        }
+        
+        return YES;
+    }];
+    
+    return keyValues;
+}
+
 #pragma mark -
 #pragma mark Store methods
 
