@@ -379,7 +379,7 @@
 
 - (void)deleteObjectForKey:(NSString *)key
 {
-	BuriWriteObject *wo = [_buri getObject:[self prefixKey:key]];;
+	BuriWriteObject *wo = [_buri getObject:[self prefixKey:key]];
 
 	if (wo) {
 		[self deleteWriteObject:wo];
