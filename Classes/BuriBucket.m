@@ -268,6 +268,71 @@
     return objects;
 }
 
+- (NSArray *)fetchSecondaryKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
+{
+    NSMutableArray *keyValues = [[NSMutableArray alloc] init];
+    NSString *indexPointer = [self exactNumericIndexPointerForIndexKey:indexField value:indexValue];
+    
+    [_buri seekToKey:indexPointer andIterate:^BOOL (NSString * key, id value) {
+        if ([key rangeOfString:indexPointer].location != 0)
+            return NO;
+        
+        if (value) {
+            NSNumber *numVal = [self indexValueForNumericIndexKey:key];
+            
+            if (numVal)
+            {
+                id object = [_buri getObject:[self prefixKey:key]];
+                if ([object isMemberOfClass:[BuriWriteObject class]]) {
+                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) value storedObject]}];
+                }
+            }
+        }
+        return YES;
+    }];
+    
+    // Remove pointer
+    //if ([keys count] > 0) {
+    //    [keys removeObjectAtIndex:0];
+    //}
+    
+    return keyValues;
+}
+
+- (NSArray *)fetchSecondaryKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue
+{
+    NSMutableArray *keyValues = [[NSMutableArray alloc] init];
+    NSString *indexPointer = [self rangeNumericIndexPointerForIndexKey:indexField];
+    
+    [_buri seekToKey:indexPointer andIterate:^BOOL (NSString * key, id value) {
+        if ([key rangeOfString:indexPointer].location != 0)
+            return NO;
+        
+        if (value)
+        {
+            NSNumber *numVal = [self indexValueForNumericIndexKey:key];
+            
+            if (numVal)
+            {
+                if ([numVal doubleValue] > [toValue doubleValue])
+                    return NO;
+                
+                if ([numVal doubleValue] > [fromValue doubleValue])
+                {
+                    id object = [_buri getObject:[self prefixKey:value]];
+                    if ([object isMemberOfClass:[BuriWriteObject class]]) {
+
+                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) object storedObject]}];
+                    }
+                }
+            }
+        }
+        return YES;
+    }];
+    
+    return keyValues;
+}
+
 - (NSArray *)allKeys
 {
 	NSMutableArray *keys = [[NSMutableArray alloc] init];
