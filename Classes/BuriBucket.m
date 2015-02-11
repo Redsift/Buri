@@ -67,6 +67,22 @@
 	return [self prefixNumericIndexKey:[NSString stringWithFormat:@"%@->%@->%@", [index key], [index value], [wo key]]];
 }
 
+- (NSString *)indexValueForBinaryIndexKey:(NSString *)indexKey
+{
+    @try {
+        NSRange firstSliceRange = [indexKey rangeOfString:@"->"];
+        NSString *firstSlice = [indexKey substringFromIndex:firstSliceRange.location + firstSliceRange.length];
+        NSRange secondSliceRange = [firstSlice rangeOfString:@"->"];
+        NSString *indexValue = [firstSlice substringToIndex:secondSliceRange.location];
+        
+        return indexValue;
+    }
+    @catch (NSException *exception) {
+        return nil;
+    }
+    
+}
+
 - (NSNumber *)indexValueForNumericIndexKey:(NSString *)indexKey
 {
     @try {
@@ -83,7 +99,7 @@
     }
     
 }
-    
+
 #pragma mark -
 #pragma mark Bucket pointers
 
@@ -268,6 +284,36 @@
     return objects;
 }
 
+- (NSArray *)fetchSecondaryKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)value {
+    NSMutableArray *keyValues = [[NSMutableArray alloc] init];
+    NSString *indexPointer = [self exactBinaryIndexPointerForIndexKey:indexField value:value];
+    
+    [_buri seekToKey:indexPointer andIterate:^BOOL (NSString * key, id value) {
+        if ([key rangeOfString:indexPointer].location != 0)
+            return NO;
+        
+        if (value) {
+            NSString *stringVal = [self indexValueForBinaryIndexKey:key];
+            
+            if (stringVal)
+            {
+                id object = [_buri getObject:[self prefixKey:value]];
+                if ([object isMemberOfClass:[BuriWriteObject class]]) {
+                    [keyValues addObject:@{@"key": stringVal, @"value": [(BuriWriteObject *) object storedObject]}];
+                }
+            }
+        }
+        return YES;
+    }];
+    
+    // Remove pointer
+    //if ([keys count] > 0) {
+    //    [keys removeObjectAtIndex:0];
+    //}
+    
+    return keyValues;
+}
+
 - (NSArray *)fetchSecondaryKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
 {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
@@ -282,9 +328,9 @@
             
             if (numVal)
             {
-                id object = [_buri getObject:[self prefixKey:key]];
+                id object = [_buri getObject:[self prefixKey:value]];
                 if ([object isMemberOfClass:[BuriWriteObject class]]) {
-                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) value storedObject]}];
+                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) object storedObject]}];
                 }
             }
         }
