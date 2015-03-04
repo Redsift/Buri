@@ -387,8 +387,12 @@
 			if ([key rangeOfString:[self bucketPointerKey]].location != 0)
 				return NO;
 
-			[keys addObject:[self removePrefixFromKey:key]];
-			return YES;
+            NSString *strippedKey = [self removePrefixFromKey:key];
+            if(strippedKey != nil && ![strippedKey isEqual: @""]) {
+                [keys addObject: strippedKey];
+                return YES;
+            }
+            return NO;
 		}];
 
 	// Remove pointer
