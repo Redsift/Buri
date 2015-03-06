@@ -392,7 +392,7 @@
                 [keys addObject: strippedKey];
                 return YES;
             }
-            return NO;
+            return YES;
 		}];
 
 	// Remove pointer
