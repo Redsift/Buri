@@ -396,9 +396,9 @@
 		}];
 
 	// Remove pointer
-    if ([keys count] > 0) {
-        [keys removeObjectAtIndex:0];
-    }
+    //if ([keys count] > 0) {
+    //    [keys removeObjectAtIndex:0];
+    //}
     
 	return keys;
 }
