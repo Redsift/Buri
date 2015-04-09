@@ -89,6 +89,9 @@
         NSRange firstSliceRange = [indexKey rangeOfString:@"->"];
         NSString *firstSlice = [indexKey substringFromIndex:firstSliceRange.location + firstSliceRange.length];
         NSRange secondSliceRange = [firstSlice rangeOfString:@"->"];
+        if(secondSliceRange.location == NSNotFound) {
+            return nil;
+        }
         NSString *numberAsString = [firstSlice substringToIndex:secondSliceRange.location];
         
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
