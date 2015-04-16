@@ -58,7 +58,7 @@ static id ObjectFromSlice(Slice v) {
         Status status = leveldb::DB::Open(options, [_path UTF8String], &levelDB->db);
         
         levelDB->readOptions.fill_cache = false;
-        levelDB->writeOptions.sync = false;
+        levelDB->writeOptions.sync = true;
         
         if(!status.ok()) {
             NSLog(@"Problem creating Buri database: %s", status.ToString().c_str());
