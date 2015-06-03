@@ -175,7 +175,7 @@
 
 - (NSArray *)fetchKeysForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue
 {
-    return [self _fetchKeyValuesForBinaryIndex:indexField value:indexValue loadValues:false];
+    return [self _fetchKeyValuesForBinaryIndex:indexField value:indexValue loadValue:false];
 }
 
 - (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue
@@ -195,12 +195,12 @@
 
 - (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
 {
-    return [self _fetchKeyValuesForNumericIndex:indexField value:indexValue loadValues:false];
+    return [self _fetchKeyValuesForNumericIndex:indexField value:indexValue loadValue:false];
 }
 
 - (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue
 {
-    return [self _fetchKeyValuesForNumericIndex:indexField from:fromValue to:toValue loadValues:false];
+    return [self _fetchKeyValuesForNumericIndex:indexField from:fromValue to:toValue loadValue:false];
 }
 
 - (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
@@ -233,7 +233,7 @@
     return objects;
 }
 
-- (NSArray *)_fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue loadValues:(BOOL)loadValues {
+- (NSArray *)_fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue loadValue:(BOOL)loadValue {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self exactBinaryIndexPointerForIndexKey:indexField value:indexValue];
     
@@ -251,7 +251,7 @@
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                     dict[@"key"] = keyValue;
                     dict[@"indexes"] = @{indexField: stringVal};
-                    if(loadValues) {
+                    if(loadValue) {
                         dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
                     [keyValues addObject:dict];
@@ -270,10 +270,10 @@
 }
 
 - (NSArray *)fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue {
-    return [self _fetchKeyValuesForBinaryIndex:indexField value:indexValue loadValues:true];
+    return [self _fetchKeyValuesForBinaryIndex:indexField value:indexValue loadValue:true];
 }
 
-- (NSArray *)_fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue loadValues:(BOOL)loadValues
+- (NSArray *)_fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue loadValue:(BOOL)loadValue
 {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self exactNumericIndexPointerForIndexKey:indexField value:indexValue];
@@ -292,7 +292,7 @@
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                     dict[@"key"] = keyValue;
                     dict[@"indexes"] = @{indexField: numVal};
-                    if(loadValues) {
+                    if(loadValue) {
                         dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
                     [keyValues addObject:dict];
@@ -312,10 +312,10 @@
 
 - (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
 {
-    return [self _fetchKeyValuesForNumericIndex:indexField value:indexValue loadValues:true];
+    return [self _fetchKeyValuesForNumericIndex:indexField value:indexValue loadValue:true];
 }
 
-- (NSArray *)_fetchKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue loadValues:(BOOL)loadValues
+- (NSArray *)_fetchKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue loadValue:(BOOL)loadValue
 {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self rangeNumericIndexPointerForIndexKey:indexField];
@@ -340,7 +340,7 @@
                         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                         dict[@"key"] = keyValue;
                         dict[@"indexes"] = @{indexField: numVal};
-                        if(loadValues) {
+                        if(loadValue) {
                         dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                         }
                         [keyValues addObject:dict];
@@ -355,7 +355,7 @@
 }
 
 - (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue {
-    return [self _fetchKeyValuesForNumericIndex:indexField from:fromValue to:toValue loadValues:true];
+    return [self _fetchKeyValuesForNumericIndex:indexField from:fromValue to:toValue loadValue:true];
 }
 
 - (NSArray *)allKeys
