@@ -17,6 +17,7 @@
 
 @optional
 - (id)value:(NSString*)key;
+- (id)internalObject;
 
 @end
 

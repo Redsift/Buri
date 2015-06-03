@@ -252,7 +252,7 @@
                     dict[@"key"] = keyValue;
                     dict[@"indexes"] = @{indexField: stringVal};
                     if(loadValues) {
-                        dict[@"value"] = [(BuriWriteObject *) object storedObject];
+                        dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
                     [keyValues addObject:dict];
                 }
@@ -293,7 +293,7 @@
                     dict[@"key"] = keyValue;
                     dict[@"indexes"] = @{indexField: numVal};
                     if(loadValues) {
-                        dict[@"value"] = [(BuriWriteObject *) object storedObject];
+                        dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
                     [keyValues addObject:dict];
                 }
@@ -341,7 +341,7 @@
                         dict[@"key"] = keyValue;
                         dict[@"indexes"] = @{indexField: numVal};
                         if(loadValues) {
-                            dict[@"value"] = [(BuriWriteObject *) object storedObject];
+                        dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                         }
                         [keyValues addObject:dict];
                     }
@@ -411,7 +411,7 @@
         if ([value isMemberOfClass:[BuriWriteObject class]]) {
             id storedObject = [(BuriWriteObject *) value storedObject];
 
-            [keyValues addObject:@{@"key": [self removePrefixFromKey:key], @"value": storedObject}];
+            [keyValues addObject:@{@"key": [self removePrefixFromKey:key], @"value": [storedObject internalObject]}];
         }
         
         return YES;
