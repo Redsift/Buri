@@ -287,7 +287,7 @@
     return objects;
 }
 
-- (NSArray *)fetchSecondaryKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)value {
+- (NSArray *)fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)value {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self exactBinaryIndexPointerForIndexKey:indexField value:value];
     
@@ -302,7 +302,7 @@
             {
                 id object = [_buri getObject:[self prefixKey:value]];
                 if ([object isMemberOfClass:[BuriWriteObject class]]) {
-                    [keyValues addObject:@{@"key": stringVal, @"value": [(BuriWriteObject *) object storedObject]}];
+                    [keyValues addObject:@{@"key": value, @"indexes": @{indexField: stringVal}, @"value": [(BuriWriteObject *) object storedObject]}];
                 }
             }
         }
@@ -317,7 +317,7 @@
     return keyValues;
 }
 
-- (NSArray *)fetchSecondaryKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
+- (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue
 {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self exactNumericIndexPointerForIndexKey:indexField value:indexValue];
@@ -333,7 +333,7 @@
             {
                 id object = [_buri getObject:[self prefixKey:value]];
                 if ([object isMemberOfClass:[BuriWriteObject class]]) {
-                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) object storedObject]}];
+                    [keyValues addObject:@{@"key": value, @"indexes": @{indexField: numVal}, @"value": [(BuriWriteObject *) object storedObject]}];
                 }
             }
         }
@@ -348,7 +348,7 @@
     return keyValues;
 }
 
-- (NSArray *)fetchSecondaryKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue
+- (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue
 {
     NSMutableArray *keyValues = [[NSMutableArray alloc] init];
     NSString *indexPointer = [self rangeNumericIndexPointerForIndexKey:indexField];
@@ -371,7 +371,7 @@
                     id object = [_buri getObject:[self prefixKey:value]];
                     if ([object isMemberOfClass:[BuriWriteObject class]]) {
 
-                    [keyValues addObject:@{@"key": numVal, @"value": [(BuriWriteObject *) object storedObject]}];
+                    [keyValues addObject:@{@"key": value, @"indexes": @{indexField: numVal}, @"value": [(BuriWriteObject *) object storedObject]}];
                     }
                 }
             }
