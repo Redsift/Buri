@@ -20,19 +20,20 @@
 
 - (id)fetchObjectForKey:(NSString *)key;
 
-- (NSArray *)fetchKeysForBinaryIndex:(NSString *)indexField value:(NSString *)value;
+- (NSArray *)fetchKeysForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue;
 
-- (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField value:(NSNumber *)value;
+- (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue;
 - (NSArray *)fetchKeysForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue;
 
-- (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField value:(NSString *)value;
-- (NSArray *)fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)value;
+- (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue;
 //- (NSArray *)fetchObjectsForBinaryIndex:(NSString *)indexField data:(NSData *)value;
 
-- (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField value:(NSNumber *)value;
+- (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue;
 - (NSArray *)fetchObjectsForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue;
 
-- (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)value;
+- (NSArray *)fetchKeyValuesForBinaryIndex:(NSString *)indexField value:(NSString *)indexValue;
+
+- (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField value:(NSNumber *)indexValue;
 - (NSArray *)fetchKeyValuesForNumericIndex:(NSString *)indexField from:(NSNumber *)fromValue to:(NSNumber *)toValue;
 
 - (NSArray *)allKeys;
