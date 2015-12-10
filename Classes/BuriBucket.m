@@ -168,6 +168,10 @@
 
 - (id)fetchObjectForKey:(NSString *)key
 {
+    if (key.length == 0) {
+        return nil;
+    }
+
 	BuriWriteObject *wo = [_buri getObject:[self prefixKey:key]];
 
 	return [wo storedObject];
