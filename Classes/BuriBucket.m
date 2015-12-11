@@ -49,7 +49,7 @@
 
 - (NSString *)removePrefixFromKey:(NSString *)prefixedKey
 {
-	int slicePosition = [prefixedKey rangeOfString:[self bucketPointerKey]].length;
+	NSUInteger slicePosition = [prefixedKey rangeOfString:[self bucketPointerKey]].length;
 
 	return [prefixedKey substringFromIndex:slicePosition];
 }
