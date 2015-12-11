@@ -254,7 +254,7 @@
                 if ([object isMemberOfClass:[BuriWriteObject class]]) {
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                     dict[@"key"] = keyValue;
-                    dict[@"indexes"] = @{indexField: stringVal};
+                    dict[@"index"] = stringVal;
                     if(loadValue) {
                         dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
@@ -295,7 +295,7 @@
                 if ([object isMemberOfClass:[BuriWriteObject class]]) {
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                     dict[@"key"] = keyValue;
-                    dict[@"indexes"] = @{indexField: numVal};
+                    dict[@"index"] = numVal;
                     if(loadValue) {
                         dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                     }
@@ -343,9 +343,9 @@
                     if ([object isMemberOfClass:[BuriWriteObject class]]) {
                         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:3];
                         dict[@"key"] = keyValue;
-                        dict[@"indexes"] = @{indexField: numVal};
+                        dict[@"index"] = numVal;
                         if(loadValue) {
-                        dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
+                            dict[@"value"] = [[(BuriWriteObject *) object storedObject] internalObject];
                         }
                         [keyValues addObject:dict];
                     }
