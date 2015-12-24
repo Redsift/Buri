@@ -435,12 +435,12 @@
 
 	BuriWriteObject *wo = [[BuriWriteObject alloc] initWithBuriObject:object];
 
-    BuriWriteObject *currObject = [_buri getObject:[self prefixKey:[wo key]]];
+    /*BuriWriteObject *currObject = [_buri getObject:[self prefixKey:[wo key]]];
     
     if (currObject)
     {
         [self deleteWriteObject:currObject];
-    }
+    }*/
     
     [self storeBinaryIndexesForWriteObject:wo];
     [self storeNumericIndexesForWriteObject:wo];
